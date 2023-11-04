@@ -1,0 +1,103 @@
+#server:
+#   port: 8082
+#
+#
+#spring:
+#   cloud:
+#    loadbalancer:
+#      ribbon:
+#        enabled: true
+#
+#   datasource:
+#      url: jdbc:mysql://localhost:3306/mindSync
+#      username: root
+#      password: 1234
+##      driver-class-name: com.mysql.cj.jdbc.Driver
+#   application:   
+#       name: USERPOST
+#
+#
+#   jpa:
+#     hibernate:
+#      naming:
+#        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl 
+#      ddl-auto: update
+#     show-sql: true
+#     properties:
+#       hibernate:
+#         dialect: org.hibernate.dialect.MySQL8Dialect
+#
+#   
+#
+#eureka:
+# instance:
+#   prefer-ip-address: true
+#    
+# client:
+#   register-with-eureka: true
+#   fetch-registry: true
+#   service-url:
+#    defaultZone: http://localhost:8080/eureka
+#
+#
+#
+#logging:
+#  level:
+#    org.springframework.cloud.loadbalancer: DEBUG
+# 
+ 
+ 
+management:
+    server:
+        port: 8082
+
+
+spring:
+    cloud:
+        loadbalancer:
+            ribbon:
+                enabled: true
+
+    datasource:
+        url: jdbc:sqlserver://microservicedb.database.windows.net:1433;database=sharepilldatabase;
+        username: microservicedb
+        password: Mahima@22
+#      driver-class-name: com.mysql.cj.jdbc.Driver
+    application:
+        name: Post-Service
+
+
+    jpa:
+        hibernate:
+            naming:
+                physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+            ddl-auto: update
+        show-sql: true
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.SQLServerDialect
+
+
+
+eureka:
+    instance:
+         hostname: Post-Service.azurewebsites.net
+#        prefer-ip-address: true
+         secure-port-enabled: true
+         nonsecure-port-enabled: false
+         nonSecurePort: 80
+         securePort: 443
+         instanceId: Post-Service.azurewebsites.net:Post-Service:443
+
+
+    client:
+#        register-with-eureka: true
+#        fetch-registry: true
+        service-url:
+            defaultZone: https://Eureka-Server.azurewebsites.net:443/eureka
+
+
+
+logging:
+    level:
+        org.springframework.cloud.loadbalancer: DEBUG

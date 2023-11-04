@@ -1,0 +1,37 @@
+management:
+  server:
+    port: 8084
+  
+spring:
+  application:
+    name: sharePill
+   
+  cloud:
+    gateway:
+      routes:
+        - id: Home-Service
+          uri: lb://Home-Service
+          predicates:
+            - Path=/**
+            
+        - id: Post-Service
+          uri: lb://Post-Service
+          predicates:
+            - Path=/**    
+      
+eureka:
+    instance:
+         hostname: sharePill.azurewebsites.net
+#        prefer-ip-address: true
+         secure-port-enabled: true
+         nonsecure-port-enabled: false
+         nonSecurePort: 80
+         securePort: 443
+         instanceId: sharePill.azurewebsites.net:sharePill:443
+
+
+    client:
+#        register-with-eureka: true
+#        fetch-registry: true
+        service-url:
+            defaultZone: https://Eureka-Server.azurewebsites.net:443/eureka

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!--    <base href="http://localhost:8081/mindSync/">
+-->   <base href="https://Home-Service.azurewebsites.net/">
+
+<meta charset="UTF-8">
+    <title>sharepill</title>
+
+    <link href="/css/feed.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+		
+	<header> 
+<svg onclick="refreshPage()" class="my-svg" xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#080808}</style><path d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/></svg>
+	
+
+</header>
+
+ 
+   
+   
+    	<div id="whole">
+			
+	<div id="sidebar">
+				<img class="logo" src="/images/5s.png"  onclick='refreshPage()' alt="sharePill" >
+
+
+
+<div id="sidebarDetail">
+
+		<center>
+	<a href="/joinUS"><div id="text"  class="nametext" >SIGNUP/LOGIN</div>	</a>
+				<a href="/generatePost"> <div id="text" class="gotsession" >CREATE NEW </div></a>
+
+		<a href="/getuserPost"> <div id="text"  class="gotsession" style="display: none;"> MY POST  </div></a>
+		<a href="/aboutUs"> <div id="text" > ABOUTUS </div></a>
+	 <div id="text" class="mailtext" onclick="showText()" > CONTACT US </div>
+	 		<a href="/personalSpace"> <div class="gotsession" id="text"   style="display: none;">SETTING </div></a>
+
+		<a href="/logout"> <div id="text" class="gotsession" style="display: none;"> SIGN OFF </div></a>
+</center>
+	</div>
+	
+	
+</div>
+
+
+   
+   
+   <form action="/updateDetails">
+	   
+		   <div class="slideshow-container">
+               <div class="slidetext2 fade " >
+                  <div class="slidetext3">Renew your credentials, effortlessly</br></div>
+               </div>
+               <div class="slidetext2 fade ">
+                  <div class="slidetext3">Revitalize your access with a click</br></div>
+               </div>
+               <div class="slidetext2 fade">
+                  <div class="slidetext3">Stay secure, stay confident</br></div>
+               </div>
+            </div>
+      
+      
+         <div class="post-container">
+               <div class="card" style="width: 100%; padding-left: 15px; padding-top: 12px; padding-bottom: 10px;">
+                  <div class="bg"></div>
+                  <div class="blob"></div>
+                  <div class="post-textarea" >
+                     <div id="postColor" th:each="data: ${data}">
+                        Name &nbsp;&nbsp;&nbsp; <input class="inputfield" type="text" id="fullname" name="fullname" th:value="${data.userName}" readonly>&nbsp;&nbsp;
+                        <button class="btn1" type="button" onclick="toggleEditable('fullname')">Edit</button>  <br><br>
+                        Password  <input class="inputfield" type="text" id="password" name="password" th:value="${data.password}" minlength="10" maxlength="10" readonly>&nbsp;&nbsp;
+                        <button class="btn1" type="button" onclick="toggleEditable('password')">Edit</button>  <br><br>				
+                     </div>
+                     <button type="submit" class="btn1" > SAVE </button> 
+                        <center style="color:red;" th:text="${updateResult}"></center>
+
+                  </div>
+               </div >
+            </div>
+            
+
+</form>
+
+
+</div>
+
+<footer style=" margin-left: 11%;margin-bottom: 0px; color: black;">
+    Developer: Mahima Bora
+</footer>
+<script th:inline="javascript">    
+	var message=[[${msg}]];           
+       if (message != null) {
+		   document.getElementsByClassName("nametext")[0].innerHTML = message.toUpperCase();
+
+        // Use a loop to handle multiple elements with the same class
+        var gotsessionElements = document.getElementsByClassName("gotsession");
+        for (var i = 0; i < gotsessionElements.length; i++) {
+            gotsessionElements[i].style.display = "block";
+        }
+    }
+         
+        
+         	
+         function showText(){
+          var s = document.getElementsByClassName("mailtext")[0];
+          s.innerHTML=" &#128231; workwebsite2000@gmail.com";
+         }		
+         	
+function toggleEditable(fieldId) {
+                    var field = document.getElementById(fieldId);
+                    var editButton = field.nextElementSibling;
+                    if (field.readOnly) {
+                        field.readOnly = false;
+                        editButton.textContent = "Cancel";
+                        field.style.borderColor = "#73AD21";
+                    } else {
+                        field.readOnly = true;
+                        editButton.textContent = "Edit";
+                        field.style.borderColor = "black";
+                    }
+                }	
+                
+var slideIndex = 0;
+showSlides();
+
+function showSlides() {
+    var slides = document.getElementsByClassName("slidetext2");
+    for (var i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+    slideIndex++;
+    if (slideIndex > slides.length) {
+        slideIndex = 1;
+    }
+    slides[slideIndex - 1].style.display = "block";
+    setTimeout(showSlides, 2000); // Change slide every 5 seconds (5000 milliseconds)
+}
+
+		
+       
+        
+function refreshPage() {
+        	  window.location.href = "https://Home-Service.azurewebsites.net/";
+}
+        	
+
+
+    </script>
+</body>
+</html>

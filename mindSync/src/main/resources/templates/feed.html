@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!--    <base href="http://localhost:8081/">
+--><base href="https://Home-Service.azurewebsites.net/">
+
+  <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      
+    <title>sharepill</title>
+
+    <link href="/css/feed.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+		
+	<header> 
+<svg class="my-svg" onclick='refreshPage()' xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#080808}</style><path d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/></svg>
+	
+
+
+	<div id="rightItem">
+
+
+		<div id="emailName" ><input class="input" type="email"placeholder="Search with mailId"></div>
+		<button class="button" onclick="search()">			
+			<svg xmlns="http://www.w3.org/2000/svg" height="25px" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#0c0d0c}</style><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
+		</button>
+		
+
+
+
+<!--	    <button class="button" onclick="search()"><img   alt="svgImg" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjYiIGhlaWdodD0iMjYiIHZpZXdCb3g9IjAgMCAyNiAyNiI+CjxwYXRoIGQ9Ik0gMTAgMC4xODc1IEMgNC41NzgxMjUgMC4xODc1IDAuMTg3NSA0LjU3ODEyNSAwLjE4NzUgMTAgQyAwLjE4NzUgMTUuNDIxODc1IDQuNTc4MTI1IDE5LjgxMjUgMTAgMTkuODEyNSBDIDEyLjI4OTA2MyAxOS44MTI1IDE0LjM5NDUzMSAxOS4wMDM5MDYgMTYuMDYyNSAxNy42ODc1IEwgMTYuOTM3NSAxOC41NjI1IEMgMTYuNTcwMzEzIDE5LjI1MzkwNiAxNi42OTkyMTkgMjAuMTM2NzE5IDE3LjI4MTI1IDIwLjcxODc1IEwgMjEuODc1IDI1LjM0Mzc1IEMgMjIuNTg5ODQ0IDI2LjA1ODU5NCAyMy43NTM5MDYgMjYuMDU4NTk0IDI0LjQ2ODc1IDI1LjM0Mzc1IEwgMjUuMzQzNzUgMjQuNDY4NzUgQyAyNi4wNTg1OTQgMjMuNzUzOTA2IDI2LjA1ODU5NCAyMi41ODk4NDQgMjUuMzQzNzUgMjEuODc1IEwgMjAuNzE4NzUgMTcuMjgxMjUgQyAyMC4xMzI4MTMgMTYuNjk1MzEzIDE5LjI1MzkwNiAxNi41OTM3NSAxOC41NjI1IDE2Ljk2ODc1IEwgMTcuNjg3NSAxNi4wOTM3NSBDIDE5LjAxMTcxOSAxNC40MjE4NzUgMTkuODEyNSAxMi4zMDA3ODEgMTkuODEyNSAxMCBDIDE5LjgxMjUgNC41NzgxMjUgMTUuNDIxODc1IDAuMTg3NSAxMCAwLjE4NzUgWiBNIDEwIDIgQyAxNC40MTc5NjkgMiAxOCA1LjU4MjAzMSAxOCAxMCBDIDE4IDE0LjQxNzk2OSAxNC40MTc5NjkgMTggMTAgMTggQyA1LjU4MjAzMSAxOCAyIDE0LjQxNzk2OSAyIDEwIEMgMiA1LjU4MjAzMSA1LjU4MjAzMSAyIDEwIDIgWiBNIDQuOTM3NSA3LjQ2ODc1IEMgNC40MjE4NzUgOC4zMDQ2ODggNC4xMjUgOS4yODkwNjMgNC4xMjUgMTAuMzQzNzUgQyA0LjEyNSAxMy4zNzEwOTQgNi41NjY0MDYgMTUuODEyNSA5LjU5Mzc1IDE1LjgxMjUgQyAxMC43NjE3MTkgMTUuODEyNSAxMS44NTkzNzUgMTUuNDMzNTk0IDEyLjc1IDE0LjgxMjUgQyAxMi41MTE3MTkgMTQuODM5ODQ0IDEyLjI0NjA5NCAxNC44NDM3NSAxMiAxNC44NDM3NSBDIDguMDg1OTM4IDE0Ljg0Mzc1IDQuOTM3NSAxMS42OTUzMTMgNC45Mzc1IDcuNzgxMjUgQyA0LjkzNzUgNy42NzU3ODEgNC45MzM1OTQgNy41NzQyMTkgNC45Mzc1IDcuNDY4NzUgWiI+PC9wYXRoPgo8L3N2Zz4="/></button>
+-->
+<!--<button  class="button" onclick="search()">SEARCH</button>
+--></div>
+	
+	
+	<!--<div id="rightItem">
+		<div id="searchbutton"style="height:33px;">
+		<div id="emailName" ><input type="text" style="	width:600px; height:27px;" placeholder="Search with mailId"></div>
+	    <button onclick="search()"><img width="30" height="30"  alt="svgImg" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjYiIGhlaWdodD0iMjYiIHZpZXdCb3g9IjAgMCAyNiAyNiI+CjxwYXRoIGQ9Ik0gMTAgMC4xODc1IEMgNC41NzgxMjUgMC4xODc1IDAuMTg3NSA0LjU3ODEyNSAwLjE4NzUgMTAgQyAwLjE4NzUgMTUuNDIxODc1IDQuNTc4MTI1IDE5LjgxMjUgMTAgMTkuODEyNSBDIDEyLjI4OTA2MyAxOS44MTI1IDE0LjM5NDUzMSAxOS4wMDM5MDYgMTYuMDYyNSAxNy42ODc1IEwgMTYuOTM3NSAxOC41NjI1IEMgMTYuNTcwMzEzIDE5LjI1MzkwNiAxNi42OTkyMTkgMjAuMTM2NzE5IDE3LjI4MTI1IDIwLjcxODc1IEwgMjEuODc1IDI1LjM0Mzc1IEMgMjIuNTg5ODQ0IDI2LjA1ODU5NCAyMy43NTM5MDYgMjYuMDU4NTk0IDI0LjQ2ODc1IDI1LjM0Mzc1IEwgMjUuMzQzNzUgMjQuNDY4NzUgQyAyNi4wNTg1OTQgMjMuNzUzOTA2IDI2LjA1ODU5NCAyMi41ODk4NDQgMjUuMzQzNzUgMjEuODc1IEwgMjAuNzE4NzUgMTcuMjgxMjUgQyAyMC4xMzI4MTMgMTYuNjk1MzEzIDE5LjI1MzkwNiAxNi41OTM3NSAxOC41NjI1IDE2Ljk2ODc1IEwgMTcuNjg3NSAxNi4wOTM3NSBDIDE5LjAxMTcxOSAxNC40MjE4NzUgMTkuODEyNSAxMi4zMDA3ODEgMTkuODEyNSAxMCBDIDE5LjgxMjUgNC41NzgxMjUgMTUuNDIxODc1IDAuMTg3NSAxMCAwLjE4NzUgWiBNIDEwIDIgQyAxNC40MTc5NjkgMiAxOCA1LjU4MjAzMSAxOCAxMCBDIDE4IDE0LjQxNzk2OSAxNC40MTc5NjkgMTggMTAgMTggQyA1LjU4MjAzMSAxOCAyIDE0LjQxNzk2OSAyIDEwIEMgMiA1LjU4MjAzMSA1LjU4MjAzMSAyIDEwIDIgWiBNIDQuOTM3NSA3LjQ2ODc1IEMgNC40MjE4NzUgOC4zMDQ2ODggNC4xMjUgOS4yODkwNjMgNC4xMjUgMTAuMzQzNzUgQyA0LjEyNSAxMy4zNzEwOTQgNi41NjY0MDYgMTUuODEyNSA5LjU5Mzc1IDE1LjgxMjUgQyAxMC43NjE3MTkgMTUuODEyNSAxMS44NTkzNzUgMTUuNDMzNTk0IDEyLjc1IDE0LjgxMjUgQyAxMi41MTE3MTkgMTQuODM5ODQ0IDEyLjI0NjA5NCAxNC44NDM3NSAxMiAxNC44NDM3NSBDIDguMDg1OTM4IDE0Ljg0Mzc1IDQuOTM3NSAxMS42OTUzMTMgNC45Mzc1IDcuNzgxMjUgQyA0LjkzNzUgNy42NzU3ODEgNC45MzM1OTQgNy41NzQyMTkgNC45Mzc1IDcuNDY4NzUgWiI+PC9wYXRoPgo8L3N2Zz4="/></button>
+		</div>
+
+	</div>-->
+</header>
+
+ 
+   
+    	<div id="whole">
+			
+	<div id="sidebar">
+				<img class="logo" src="/images/5s.png"  onclick='refreshPage()' alt="sharePill" >
+
+<div id="sidebarDetail">
+
+		<center>
+	<a href="/joinUS"><div id="text"  class="nametext" >SIGNUP/LOGIN</div>	</a>
+	
+	
+			<a href="/generatePost"> <div id="text" class="gotsession" >CREATE NEW </div></a>
+	
+	
+		<a href="/getuserPost"> <div id="text"  class="gotsession" style="display: none;"> MY POST  </div></a>
+		<a href="/aboutUs"> <div id="text" > ABOUTUS </div></a>
+	 <div id="text" class="mailtext" onclick="showText()" > CONTACT US </div>
+	 		<a href="/personalSpace"> <div class="gotsession" id="text"   style="display: none;">SETTING </div></a>
+
+		<a href="/logout"> <div id="text" class="gotsession" style="display: none;"> SIGN OFF </div></a>
+</center>
+	</div>
+	
+	
+</div>
+ 
+   
+   
+   <form action="/rating">
+	   
+<!--<div class="slideshow-container" style="background-image: url('/images/textbg1.png')">
+-->            
+<div class="slideshow-container">
+			 <div class="slidetext2 fade " >
+               <div class="slidetext3">“There is no greater agony than bearing an untold story inside you.” – Maya Angelou </br></div>
+            </div>
+            <div class="slidetext2 fade ">
+               <div class="slidetext3">“You must remember that your story matters. What you write has the power to save a life, sometimes that life is your own.”
+— Stalina Goodwin</br></div>
+            </div>
+            <div class="slidetext2 fade">
+               <div class="slidetext3">“Words can be like X-rays if you use them properly—they’ll go through anything. You read and you’re pierced.” — Aldous Huxley</br></div>
+            </div>
+      </div>
+      
+      
+    <div class="post-container" th:each="post : ${list}">
+        <div class="card">
+            <div class="bg"></div>
+            	<div class="blob"></div>
+           			<div class="post-textarea" >           
+						<img width="30" height="30" src="https://img.icons8.com/papercut/60/test-account.png" alt="test-account"/>
+						<div style="display: inline-block; vertical-align: middle; margin-top: 0px; font-size:14px;"><span class="email" th:text="${post.email}"></span><br><span th:text="${post.userName}"></span><br><span th:text="${(post.timeStamp)}"></span></div>
+	        			<div id="postColor">
+	           				<p><span th:text="${post.post}"></span></p>
+	       		 		</div>	 
+	       		 		<button class="heart"type="submit" name="postId" th:value="${post.Id}">		 
+							<img width="25" height="25"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAACwklEQVR4nO2ZTWsTYRDHH60vtagggjcRL6IiHozdmS3KqjuzDTS+IAR70IsH0Xr15EE9qOh3UFHQg6CXXsWDLyAqolKQ9gNYKA3SZp6ktr6sbGiVukl8mmyyWdw/zCWQye//zOxkd1apVKlS/Z+aPNK3bmpg3wY/v3OVSoKKnr1dGK4I4yvNOKUZ/SCE4Ztm/CQEtzRZA34+31Uvz4TjrBWGQU1wXxOMCOHsfJ4ZzfhRGO4VCY77iGsiAZ92e7dphgdC+GMBum4QjIoHJ/7OEwBpwkuasWCSRwjHiwTn/ExmZcPwmqxTQlgyAg/Ho0LWWh/kKbl2r2YcaySPEH4oH7S3LBleCK43CP7nxxnfNnkI/nxVJ0oeWsbwJcKzzcK3IAozbG01gLfQuN/bHELwznecFTXhfaWWCcHruEF1nSh5cKb26bvW0bgB9T+rgOO+43RXNRBMjrgBtUl4di7cPo7TLQzl2OHYpApwO2RA2N4VN5g2DYKRcP979rEEGShWqQAMxg7G5hG6kIMbsbihtGEIwdfwBOrHPYkxwPA5PIXy+S5N8CUhFRiu9T/wOBkVsM5XN+DZuc6Hx7myt3dzVQP+ZbW80fv2NrbP3arwSRinQjgbPCHWNVBpJYJnndk+cE2ZqEiwo+mnqKiDYNTPZXqMDFRMMAx10MmX5RDsVktVsOKIHx5/CsNJ1Yj8bHa1Jnweb+vgRdXsBk4zvojp9K82Bf+7ErlMjyZ82s620WRdiAR+kQmGJy2HJ/iuPft0pPCLHzvxTgsNFLSLWdVqBauNhaVsdG0Db4wWV1Gp2G/tD1YcUfS7ENysu7Bqlabd3o2a4WETBsbEhQMqbgnbec04uYRTnxPGGzUXVHFI2N4UXOCVEVh/ygwHL0tUp6rs9tnV9qvBZx3RLqYSF0kI3muClyXGw8Hi2PjLqVKlSqWSol9mYkMjDcFGgQAAAABJRU5ErkJggg==">
+							<br><span th:text="${post.likeCount}"></span>
+	 					</button> 
+	    			</div>     
+        </div >  
+    </div>
+</form>
+
+
+</div>
+<footer style=" margin-left: 11%;margin-bottom: 0px; color: black;">
+    Developer: Mahima Bora
+</footer>
+<script th:inline="javascript">    
+	var message=[[${msg}]];  
+         
+          if (message != null) {
+        document.getElementsByClassName("nametext")[0].innerHTML = message.toUpperCase();
+
+        // Use a loop to handle multiple elements with the same class
+        var gotsessionElements = document.getElementsByClassName("gotsession");
+        for (var i = 0; i < gotsessionElements.length; i++) {
+			gotsessionElements[i].style.display = "block";
+        }
+    }
+         
+		
+  function showText(){
+
+          var s = document.getElementsByClassName("mailtext")[0];
+          s.innerHTML=" &#128231; workwebsite2000@gmail.com";
+         }	
+		
+		
+		
+// Add JavaScript code here to control the slideshow
+var slideIndex = 0;
+showSlides();
+
+function showSlides() {
+    var slides = document.getElementsByClassName("slidetext2");
+    for (var i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+    slideIndex++;
+    if (slideIndex > slides.length) {
+        slideIndex = 1;
+    }
+    slides[slideIndex - 1].style.display = "block";
+    setTimeout(showSlides, 2000); // Change slide every 5 seconds (5000 milliseconds)
+}
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+        function search() {
+            var searchValue = document.getElementById("emailName").querySelector("input").value;
+            var postContainers = document.querySelectorAll('.post-container');
+
+            postContainers.forEach(function (postContainer) {
+                var email = postContainer.querySelector('.email').textContent;
+                if (email === searchValue) {
+                    postContainer.style.display = "block"; // Show the post container
+                } else {
+                    postContainer.style.display = "none";  // Hide the post container
+                }
+            });
+        }
+        
+
+        
+        function refreshPage() {
+        	  window.location.href = "https://Home-Service.azurewebsites.net/";
+        	  
+        	}
+        	
+
+
+
+
+    </script>
+</body>
+</html>
